@@ -132,6 +132,6 @@
             <button type="submit">Register</button>
         </form>
 
-        <a href="{{ route('user.dashboard') }}" class="link-button">← Back to Dashboard</a>
+        
     </div>
 @endsection
