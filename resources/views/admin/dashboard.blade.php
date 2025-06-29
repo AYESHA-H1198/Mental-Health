@@ -4,10 +4,10 @@
 
 @section('content')
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Open+Sans&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Roboto:wght@400;500&display=swap');
 
         body {
-            font-family: 'Open Sans', sans-serif;
+            font-family: 'Roboto', sans-serif;
             background-color: #fdf6f0;
         }
 
@@ -21,10 +21,10 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
         }
 
-        .topbar h2 {
-            font-family: 'Pacifico', cursive;
-            color: #a855f7;
-            font-size: 1.8rem;
+        .topbar .logo-text {
+            font-family: 'Merriweather', serif;
+            font-size: 2rem;
+            color: #7b4f75;
         }
 
         .logout-link {
@@ -103,7 +103,7 @@
     </style>
 
     <div class="topbar">
-        <h2>👋 Welcome, Admin!</h2>
+        <div class="logo-text">MindEase</div>
         <a href="{{ route('admin.logout') }}" class="logout-link">🚪 Logout</a>
     </div>
 
