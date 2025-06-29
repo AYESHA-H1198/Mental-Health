@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <title>@yield('title', 'User Portal')</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Open+Sans&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Merriweather:wght@400;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <style>
         body {
             background-color: #fdf6f0;
-            font-family: 'Open Sans', sans-serif;
+            font-family: 'Roboto', sans-serif;
             margin: 0;
             padding: 0;
         }
@@ -25,18 +25,20 @@
 
         .logo-text {
             font-family: 'Pacifico', cursive;
-            font-size: 1.8rem;
+            font-size: 2rem;
             color: #7b4f75;
+            letter-spacing: 1px;
         }
 
         .logout {
             font-size: 0.9rem;
             background: linear-gradient(135deg, #c3aed6, #a0c4ff);
-            color: #fff;
+            color: white;
             padding: 0.5rem 1.2rem;
             border-radius: 20px;
             text-decoration: none;
-            transition: 0.3s;
+            transition: 0.3s ease;
+            font-weight: bold;
         }
 
         .logout:hover {
@@ -46,8 +48,13 @@
 
         main {
             padding: 2rem;
-            max-width: 900px;
+            max-width: 960px;
             margin: auto;
+        }
+
+        h2, h3 {
+            font-family: 'Merriweather', serif;
+            color: #7b4f75;
         }
 
         form {
@@ -57,7 +64,7 @@
             box-shadow: 0 0 15px rgba(0,0,0,0.06);
         }
 
-        input, button {
+        input, button, select {
             display: block;
             width: 100%;
             margin-bottom: 1.2rem;
@@ -65,9 +72,10 @@
             border: 1px solid #ddd;
             border-radius: 10px;
             font-size: 1rem;
+            font-family: 'Roboto', sans-serif;
         }
 
-        input:focus {
+        input:focus, select:focus {
             outline: none;
             border-color: #b5838d;
             box-shadow: 0 0 5px #e0aaff;
@@ -78,12 +86,15 @@
             color: #333;
             font-weight: bold;
             cursor: pointer;
-            transition: 0.3s;
+            transition: 0.3s ease;
+            border: none;
         }
 
         button:hover {
             background: linear-gradient(135deg, #eab6cc, #d1a3ff);
             color: white;
+            transform: scale(1.03);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
         }
 
         table {
@@ -93,6 +104,7 @@
             background-color: white;
             border-radius: 10px;
             overflow: hidden;
+            box-shadow: 0 0 12px rgba(0,0,0,0.05);
         }
 
         th, td {
@@ -103,7 +115,8 @@
 
         th {
             background-color: #f1faee;
-            color: #333;
+            color: #1d3557;
+            font-weight: 600;
         }
 
         .message {
@@ -111,24 +124,34 @@
             margin-bottom: 1rem;
             border-radius: 10px;
             font-weight: bold;
+            text-align: center;
         }
 
-        .success { background-color: #d4edda; color: #155724; }
-        .error { background-color: #f8d7da; color: #721c24; }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
 
         .link-button {
-            background-color: #7b4f75;
+            background: linear-gradient(135deg, #f472b6, #a78bfa);
             color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 10px;
+            padding: 0.6rem 1.2rem;
+            border-radius: 30px;
             text-decoration: none;
             display: inline-block;
-            font-weight: bold;
-            transition: 0.3s;
+            font-weight: 600;
+            transition: 0.3s ease;
         }
 
         .link-button:hover {
-            background-color: #5d3a5a;
+            background: linear-gradient(135deg, #ec4899, #7c3aed);
+            transform: scale(1.03);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
     </style>
 </head>
