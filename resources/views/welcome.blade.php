@@ -2,9 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>MindEase</title>
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Open+Sans&display=swap" rel="stylesheet">
+    <title>MindEase | Mental Health Portal</title>
+
+    <!-- Professional Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+
     <style>
+        /* Base Reset */
         * {
             margin: 0;
             padding: 0;
@@ -12,44 +16,48 @@
         }
 
         body {
-            font-family: 'Open Sans', sans-serif;
+            font-family: 'Roboto', sans-serif;
+            background-color: #fdfdfd;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
-            background-color: #fff;
+            color: #333;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
         }
 
         /* Header */
         .header {
             display: flex;
             align-items: center;
-            padding: 15px 30px;
-            background-color: #fef1f6;
-            border-bottom: 1px solid #e4c8d3;
+            padding: 16px 32px;
+            background-color: #f5f1fa;
+            border-bottom: 1px solid #d4cfe4;
         }
 
         .header img {
-            height: 40px;
-            margin-right: 10px;
+            height: 42px;
+            margin-right: 12px;
         }
 
         .header h1 {
-            font-family: 'Pacifico', cursive;
-            font-size: 1.8rem;
-            color: #7b4f75;
+            font-family: 'Merriweather', serif;
+            font-size: 1.9rem;
+            color: #5c4d7d;
         }
 
-        /* Banner Image Section */
+        /* Banner */
         .banner {
             background: url('https://www.thechicagoschool.edu/insightadmin/2020/09/CMHC-Careers-770x404.jpg') no-repeat center center;
             background-size: cover;
             height: 85vh;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            color: #fff;
             position: relative;
         }
 
@@ -58,94 +66,101 @@
             position: absolute;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            background-color: rgba(0, 0, 0, 0.4); /* dark overlay */
+            background-color: rgba(0, 0, 0, 0.45);
             z-index: 0;
         }
 
         .banner-content {
             position: relative;
             z-index: 1;
+            padding: 20px;
         }
 
         .banner h2 {
-            font-family: 'Pacifico', cursive;
-            font-size: 2.7rem;
-            margin-bottom: 30px;
-            background: linear-gradient(135deg, #fce3ec, #c8d8e4, #e0c3fc);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            color: transparent;
-            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.7);
+            font-family: 'Merriweather', serif;
+            font-size: 2.6rem;
+            color: #fff;
+            margin-bottom: 32px;
+            text-shadow: 1px 2px 4px rgba(0, 0, 0, 0.4);
         }
 
+        /* Buttons */
         .button-group {
             display: flex;
             flex-direction: column;
-            gap: 15px;
             align-items: center;
+            justify-content: center;
+            gap: 16px;
+            text-align: center;
         }
 
         .button-group a {
-            background: linear-gradient(135deg, #fce3ec, #e0c3fc);
-            color: #4a4a4a;
-            text-decoration: none;
-            padding: 14px 30px;
+            background: linear-gradient(135deg, #e3d7f5, #cde6f9);
+            padding: 14px 36px;
             border-radius: 30px;
-            font-weight: bold;
             font-size: 1rem;
-            border: none;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            font-weight: 600;
+            color: #333;
             transition: all 0.3s ease;
-            position: relative;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
         .button-group a:hover {
-            background: linear-gradient(135deg, #eab6cc, #d1a3ff);
-            color: white;
+            background: linear-gradient(135deg, #d2bdfc, #9ec9f9);
+            color: #fff;
             transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
         }
 
         /* Footer */
         footer {
-            background-color: #fef1f6;
+            background-color: #f5f1fa;
+            padding: 16px;
             text-align: center;
-            padding: 15px;
             font-size: 0.9rem;
-            border-top: 1px solid #e3cfe4;
+            border-top: 1px solid #d4cfe4;
             color: #555;
+            margin-top: auto;
         }
 
         footer p {
-            margin: 4px 0;
+            margin: 6px 0;
+        }
+
+        /* Responsive Layout */
+        @media (min-width: 768px) {
+            .button-group {
+                flex-direction: row;
+                justify-content: center;
+            }
         }
     </style>
 </head>
 <body>
 
     <!-- Header -->
-    <div class="header">
-        <img src="https://cdn-icons-png.flaticon.com/512/4206/4206320.png" alt="Logo">
+    <header class="header" role="banner">
+        <img src="https://cdn-icons-png.flaticon.com/512/4206/4206320.png" alt="MindEase Logo" />
         <h1>MindEase</h1>
-    </div>
+    </header>
 
     <!-- Banner Section -->
-    <div class="banner">
+    <section class="banner" aria-label="Welcome Banner">
         <div class="banner-content">
-            <h2>Mental Health Counselling Portal</h2>
+            <h2>Your Trusted Partner in Mental Health and Well-being</h2>
             <div class="button-group">
-                <a href="{{ url('/admin/login') }}">Admin</a>
-                <a href="{{ url('/doctor/login') }}">Doctor</a>
-                <a href="{{ url('/register') }}">User</a>
+                <a href="{{ url('/admin/login') }}">Administrator Login</a>
+                <a href="{{ url('/doctor/login') }}">Practitioner Login</a>
+                <a href="{{ url('/register') }}">Client Sign Up</a>
             </div>
         </div>
-    </div>
+    </section>
 
     <!-- Footer -->
-    <footer>
-        <p>Contact us: support@mentalhealthportal.com</p>
-        <p>Phone: +92 300 1234567</p>
-        <p>© 2025 MindEase | All rights reserved</p>
+    <footer role="contentinfo">
+        <p>For inquiries: <a href="mailto:support@mentalhealthportal.com">support@mentalhealthportal.com</a></p>
+        <p>Call us: +92 300 1234567</p>
+        <p>&copy; 2025 MindEase. All rights reserved.</p>
     </footer>
 
 </body>
