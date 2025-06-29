@@ -4,9 +4,17 @@
 
 @section('content')
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Roboto:wght@400;500&display=swap');
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f9fafc;
+            color: #333;
+        }
+
         .appointment-form {
             max-width: 500px;
-            margin: 30px auto;
+            margin: 40px auto;
             background-color: #ffffff;
             padding: 30px;
             border-radius: 16px;
@@ -15,8 +23,8 @@
 
         h2 {
             text-align: center;
-            color: #a855f7;
-            font-family: 'Pacifico', cursive;
+            color: #5c4d7d;
+            font-family: 'Merriweather', serif;
             font-size: 1.8rem;
             margin-bottom: 25px;
         }
@@ -25,7 +33,7 @@
             display: block;
             margin-top: 1rem;
             margin-bottom: 0.5rem;
-            font-weight: bold;
+            font-weight: 600;
             color: #1d3557;
         }
 
@@ -50,19 +58,19 @@
             margin-top: 20px;
             width: 100%;
             padding: 12px;
-            background: linear-gradient(to right, #f472b6, #a78bfa);
+            background: linear-gradient(to right, #8b5cf6, #ec4899);
             color: white;
             font-size: 1rem;
             border: none;
             border-radius: 30px;
-            font-weight: bold;
+            font-weight: 600;
             cursor: pointer;
-            transition: 0.3s ease;
+            transition: all 0.3s ease;
         }
 
         button:hover {
-            background: linear-gradient(to right, #ec4899, #7c3aed);
-            transform: scale(1.03);
+            background: linear-gradient(to right, #7c3aed, #db2777);
+            transform: translateY(-2px);
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
         }
 
@@ -96,6 +104,7 @@
             border-radius: 8px;
             text-decoration: none;
             font-weight: 600;
+            transition: background-color 0.3s ease;
         }
 
         .link-button:hover {
@@ -104,7 +113,7 @@
     </style>
 
     <div class="appointment-form">
-        <h2>📅 Book Appointment with {{ $doctor->name }}</h2>
+        <h2>Book an Appointment with {{ $doctor->name }}</h2>
 
         @if (session('error'))
             <div class="message error">{{ session('error') }}</div>
@@ -118,15 +127,15 @@
             @csrf
             <input type="hidden" name="DID" value="{{ $doctor->DID }}">
 
-            <label for="date">Select Date:</label>
+            <label for="date">Select Date</label>
             <input type="date" name="date" id="date" required>
 
-            <label for="time">Select Time:</label>
+            <label for="time">Select Time</label>
             <input type="time" name="time" id="time" required>
 
-            <button type="submit">✅ Book Appointment</button>
+            <button type="submit">Confirm Appointment</button>
         </form>
 
-        <a href="{{ route('user.dashboard') }}" class="link-button">⬅ Back to Dashboard</a>
+        <a href="{{ route('user.dashboard') }}" class="link-button">← Back to Dashboard</a>
     </div>
 @endsection
