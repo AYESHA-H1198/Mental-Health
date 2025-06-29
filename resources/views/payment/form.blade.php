@@ -1,29 +1,36 @@
-@extends('layout.user') {{-- Ensure you're using the styled user layout --}}
+@extends('layout.user')
 
 @section('title', 'Make Payment')
 
 @section('content')
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Roboto:wght@400;500&display=swap');
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f9fafc;
+        }
+
         .payment-wrapper {
             max-width: 520px;
-            margin: 30px auto;
+            margin: 40px auto;
             background-color: #ffffff;
             padding: 30px;
             border-radius: 16px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
         }
 
         .payment-wrapper h2 {
-            font-family: 'Pacifico', cursive;
+            font-family: 'Merriweather', serif;
             font-size: 1.8rem;
             text-align: center;
-            color: #a855f7;
+            color: #7b4f75;
             margin-bottom: 25px;
         }
 
         label {
             font-weight: 600;
-            color: #444;
+            color: #1d3557;
             margin-top: 1rem;
             display: block;
         }
@@ -81,8 +88,8 @@
 
         button:hover {
             background: linear-gradient(to right, #ec4899, #7c3aed);
+            transform: scale(1.03);
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-            transform: scale(1.02);
         }
 
         .back-link {
@@ -90,8 +97,9 @@
             text-align: center;
             margin-top: 20px;
             text-decoration: none;
-            color: #7c3aed;
+            color: #6d28d9;
             font-weight: bold;
+            font-size: 0.95rem;
         }
 
         .back-link:hover {
