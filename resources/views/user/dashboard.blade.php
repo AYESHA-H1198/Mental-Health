@@ -4,23 +4,34 @@
 
 @section('content')
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Roboto:wght@400;500&display=swap');
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f9fafc;
+            color: #333;
+        }
+
         .dashboard-wrapper {
             max-width: 1000px;
-            margin: 0 auto;
+            margin: 40px auto;
+            padding: 20px;
         }
 
         h2 {
-            font-family: 'Pacifico', cursive;
-            font-size: 1.8rem;
-            color: #a855f7;
+            font-family: 'Merriweather', serif;
+            font-size: 2rem;
+            color: #7b4f75;
             margin-bottom: 1.5rem;
             text-align: center;
         }
 
         h3 {
             color: #1d3557;
-            margin: 30px 0 10px;
-            font-size: 1.3rem;
+            margin: 30px 0 15px;
+            font-size: 1.4rem;
+            font-weight: 600;
+            font-family: 'Roboto', sans-serif;
         }
 
         .message.success {
@@ -46,17 +57,18 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+            background-color: #ffffff;
+            box-shadow: 0 0 12px rgba(0, 0, 0, 0.05);
             border-radius: 10px;
             overflow: hidden;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
         }
 
         th, td {
             padding: 14px;
             text-align: center;
-            border: 1px solid #eee;
+            border: 1px solid #f1f1f1;
+            font-size: 0.95rem;
         }
 
         th {
@@ -77,6 +89,7 @@
             text-decoration: none;
             display: inline-block;
             font-weight: 600;
+            font-size: 0.9rem;
             transition: 0.3s ease;
         }
 
