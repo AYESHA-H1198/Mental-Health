@@ -3,37 +3,45 @@
 @section('title', 'Doctor Dashboard')
 
 @section('content')
-    <h2 style="color: #1d3557;">👨‍⚕️ Welcome {{ $doctor->name }}</h2>
+    <h2 style="color: #7b4f75; font-family: 'Pacifico', cursive; font-size: 2rem; margin-bottom: 1rem;">
+        👨‍⚕️ Welcome, {{ $doctor->name }}
+    </h2>
 
     <div style="margin-top: 20px;">
-        <h3 style="color: #457b9d;">📅 Your Appointments</h3>
+        <h3 style="color: #457b9d; font-size: 1.4rem; margin-bottom: 10px;">📅 Your Appointments</h3>
 
-        <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
-            <thead style="background-color: #f1faee;">
-                <tr>
-                    <th style="border: 1px solid #ccc; padding: 8px;">Patient</th>
-                    <th style="border: 1px solid #ccc; padding: 8px;">Day</th>
-                    <th style="border: 1px solid #ccc; padding: 8px;">Time</th>
-                    <th style="border: 1px solid #ccc; padding: 8px;">Status</th>
-                    <th style="border: 1px solid #ccc; padding: 8px;">Change Status</th>
+        <table style="width: 100%; border-collapse: collapse; margin-top: 10px; background-color: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 0 10px rgba(0,0,0,0.05);">
+            <thead style="background-color: #fce3ec;">
+                <tr style="color: #4a4a4a;">
+                    <th style="padding: 12px;">Patient</th>
+                    <th style="padding: 12px;">Day</th>
+                    <th style="padding: 12px;">Time</th>
+                    <th style="padding: 12px;">Status</th>
+                    <th style="padding: 12px;">Change Status</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach($appointments as $app)
-                <tr>
-                    <td style="border: 1px solid #ccc; padding: 8px;">{{ $app->patient_name }}</td>
-                    <td style="border: 1px solid #ccc; padding: 8px;">{{ $app->day }}</td>
-                    <td style="border: 1px solid #ccc; padding: 8px;">{{ $app->time }}</td>
-                    <td style="border: 1px solid #ccc; padding: 8px;">{{ $app->status ?? 'Pending' }}</td>
-                    <td style="border: 1px solid #ccc; padding: 8px;">
-                        <form method="POST" action="{{ route('appointment.updateStatus') }}" style="display: flex; gap: 6px;">
+                <tr style="text-align: center;">
+                    <td style="padding: 10px; border-bottom: 1px solid #eee;">{{ $app->patient_name }}</td>
+                    <td style="padding: 10px; border-bottom: 1px solid #eee;">{{ $app->day }}</td>
+                    <td style="padding: 10px; border-bottom: 1px solid #eee;">{{ $app->time }}</td>
+                    <td style="padding: 10px; border-bottom: 1px solid #eee;">
+                        <span style="background-color: #f1faee; padding: 6px 12px; border-radius: 20px; display: inline-block; font-weight: bold;">
+                            {{ $app->status ?? 'Pending' }}
+                        </span>
+                    </td>
+                    <td style="padding: 10px; border-bottom: 1px solid #eee;">
+                        <form method="POST" action="{{ route('appointment.updateStatus') }}" style="display: flex; gap: 10px; align-items: center; justify-content: center;">
                             @csrf
                             <input type="hidden" name="Anum" value="{{ $app->Anum }}">
-                            <select name="status" required style="padding: 4px 8px; border-radius: 6px;">
+                            <select name="status" required style="padding: 6px 10px; border-radius: 10px; border: 1px solid #ccc; font-size: 0.95rem;">
                                 <option value="completed">Completed</option>
                                 <option value="missed">Missed</option>
                             </select>
-                            <button type="submit" style="background-color: #457b9d; color: white; padding: 6px 12px; border: none; border-radius: 6px;">Update</button>
+                            <button type="submit" style="background: linear-gradient(135deg, #fce3ec, #e0c3fc); color: #4a4a4a; font-weight: bold; padding: 6px 16px; border: none; border-radius: 20px; cursor: pointer; transition: 0.3s;">
+                                Update
+                            </button>
                         </form>
                     </td>
                 </tr>
