@@ -18,20 +18,28 @@
             padding: 20px;
         }
 
-        h2 {
+        .logo-text {
             font-family: 'Merriweather', serif;
             font-size: 2rem;
             color: #7b4f75;
-            margin-bottom: 1.5rem;
             text-align: center;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            text-align: center;
+            font-family: 'Merriweather', serif;
+            font-size: 1.5rem;
+            color: #5c4d7d;
+            margin-bottom: 30px;
         }
 
         h3 {
-            color: #1d3557;
-            margin: 30px 0 15px;
-            font-size: 1.4rem;
-            font-weight: 600;
             font-family: 'Roboto', sans-serif;
+            font-size: 1.25rem;
+            color: #1d3557;
+            margin-top: 40px;
+            margin-bottom: 15px;
         }
 
         .message.success {
@@ -40,8 +48,8 @@
             padding: 12px;
             border-radius: 10px;
             font-weight: 500;
-            margin-bottom: 20px;
             text-align: center;
+            margin-bottom: 20px;
         }
 
         .message.error {
@@ -50,18 +58,18 @@
             padding: 12px;
             border-radius: 10px;
             font-weight: 500;
-            margin-bottom: 20px;
             text-align: center;
+            margin-bottom: 20px;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
             background-color: #ffffff;
+            border-radius: 12px;
             box-shadow: 0 0 12px rgba(0, 0, 0, 0.05);
-            border-radius: 10px;
             overflow: hidden;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
 
         th, td {
@@ -74,7 +82,7 @@
         th {
             background-color: #e0e7ff;
             color: #1e3a8a;
-            font-weight: 600;
+            font-weight: bold;
         }
 
         tr:nth-child(even) {
@@ -87,21 +95,22 @@
             padding: 8px 16px;
             border-radius: 8px;
             text-decoration: none;
-            display: inline-block;
             font-weight: 600;
-            font-size: 0.9rem;
-            transition: 0.3s ease;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            display: inline-block;
         }
 
         .link-button:hover {
             background: linear-gradient(to right, #ec4899, #7c3aed);
-            transform: scale(1.03);
+            transform: translateY(-2px);
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
         }
     </style>
 
     <div class="dashboard-wrapper">
-        <h2>👋 Welcome, {{ $user->name ?? $user->email }}!</h2>
+        <h1 class="logo-text">MindEase</h1>
+        <h2>Welcome, {{ $user->name ?? $user->email }}</h2>
 
         @if(session('success'))
             <div class="message success">{{ session('success') }}</div>
@@ -127,7 +136,9 @@
                         <td>{{ $doc->name }}</td>
                         <td>{{ $doc->phone }}</td>
                         <td>{{ $doc->email }}</td>
-                        <td><a href="{{ route('appointment.form', $doc->DID) }}" class="link-button">Book</a></td>
+                        <td>
+                            <a href="{{ route('appointment.form', $doc->DID) }}" class="link-button">Book</a>
+                        </td>
                     </tr>
                 @endforeach
             </tbody>
@@ -151,7 +162,9 @@
                         <td>{{ $appointment->day }}</td>
                         <td>{{ $appointment->time }}</td>
                         <td>{{ $appointment->status ?? 'Pending' }}</td>
-                        <td><a href="{{ route('payment.form', $appointment->Anum) }}" class="link-button">Pay</a></td>
+                        <td>
+                            <a href="{{ route('payment.form', $appointment->Anum) }}" class="link-button">Pay</a>
+                        </td>
                     </tr>
                 @endforeach
             </tbody>
