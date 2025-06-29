@@ -4,7 +4,8 @@
 
 @section('content')
     <div class="container">
-        <h2 class="heading">📋 All Appointments</h2>
+        <h2 class="logo-heading">MindEase</h2>
+        <h3 class="sub-heading">📋 All Appointments</h3>
 
         <div class="table-wrapper">
             <table class="appointments-table">
@@ -45,11 +46,12 @@
 
 @section('styles')
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Open+Sans&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Roboto:wght@400;500&display=swap');
 
         body {
-            font-family: 'Open Sans', sans-serif;
+            font-family: 'Roboto', sans-serif;
             background-color: #fdf6f0;
+            color: #333;
         }
 
         .container {
@@ -58,11 +60,18 @@
             margin: auto;
         }
 
-        .heading {
-            font-family: 'Pacifico', cursive;
+        .logo-heading {
+            font-family: 'Merriweather', serif;
             font-size: 2.2rem;
-            color: #a855f7;
             text-align: center;
+            color: #7b4f75;
+            margin-bottom: 10px;
+        }
+
+        .sub-heading {
+            font-size: 1.4rem;
+            text-align: center;
+            color: #5c4d7d;
             margin-bottom: 30px;
         }
 
