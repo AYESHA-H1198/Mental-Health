@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Admin Login - Mental Health Portal</title>
+    <title>Admin Login | MindEase</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
+
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Open+Sans&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 
     <style>
         * {
@@ -15,7 +15,7 @@
 
         body {
             background-color: #fdf6f0;
-            font-family: 'Open Sans', sans-serif;
+            font-family: 'Roboto', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -25,19 +25,26 @@
 
         .login-container {
             background-color: #ffffff;
-            padding: 2rem 2.5rem;
+            padding: 2.5rem 2rem;
             border-radius: 16px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
             width: 100%;
             max-width: 420px;
+            text-align: center;
+        }
+
+        .logo-text {
+            font-family: 'Merriweather', serif;
+            font-size: 2rem;
+            color: #7b4f75;
+            margin-bottom: 8px;
         }
 
         h2 {
-            text-align: center;
-            font-family: 'Pacifico', cursive;
-            color: #a855f7;
+            font-family: 'Merriweather', serif;
+            font-size: 1.4rem;
+            color: #4a4a4a;
             margin-bottom: 1.8rem;
-            font-size: 1.8rem;
         }
 
         input[type="email"],
@@ -89,6 +96,7 @@
 <body>
 
     <div class="login-container">
+        <div class="logo-text">MindEase</div>
         <h2>🔐 Admin Login</h2>
 
         @if(session('error'))
