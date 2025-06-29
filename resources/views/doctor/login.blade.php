@@ -6,10 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Open+Sans&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Roboto&display=swap" rel="stylesheet">
 
     <style>
-        /* Reset + Box sizing */
         * {
             margin: 0;
             padding: 0;
@@ -18,95 +17,104 @@
 
         body {
             background-color: #fdf6f0;
-            font-family: 'Open Sans', sans-serif;
+            font-family: 'Roboto', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            overflow: hidden;
         }
 
-        .login-box {
+        .login-container {
             background-color: #ffffff;
             padding: 40px 30px;
             border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            width: 90vw;              /* Responsive width */
-            max-width: 400px;         /* Prevents overflow on large screens */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            width: 90%;
+            max-width: 420px;
+            text-align: center;
         }
 
-        .login-box h2 {
-            font-family: 'Pacifico', cursive;
+        .logo-text {
+            font-family: 'Merriweather', serif;
             font-size: 2rem;
-            text-align: center;
+            color: #7b4f75;
+            margin-bottom: 10px;
+        }
+
+        .login-container h2 {
+            font-family: 'Merriweather', serif;
+            font-size: 1.4rem;
             margin-bottom: 30px;
-            background: linear-gradient(135deg, #c084fc, #ec4899);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: #4a4a4a;
         }
 
         label {
-            font-weight: bold;
+            display: block;
+            text-align: left;
+            font-weight: 500;
             color: #333;
             font-size: 0.95rem;
-            margin-bottom: 6px;
-            display: block;
+            margin-top: 1rem;
         }
 
         input[type="email"],
         input[type="password"] {
             width: 100%;
             padding: 12px 15px;
-            margin-bottom: 20px;
+            margin-top: 6px;
             border: 1px solid #ccc;
-            border-radius: 10px;
+            border-radius: 12px;
             font-size: 1rem;
-            color: #333;
             background-color: #f9f9f9;
+            transition: border-color 0.3s ease;
         }
 
         input:focus {
             border-color: #a78bfa;
-            box-shadow: 0 0 6px rgba(167, 139, 250, 0.4);
+            box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.2);
             outline: none;
+        }
+
+        .error-message {
+            background-color: #fee2e2;
+            color: #991b1b;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-weight: 500;
         }
 
         button {
             width: 100%;
-            margin-top: 10px;
             padding: 12px;
+            margin-top: 24px;
             border: none;
             border-radius: 30px;
             font-size: 1rem;
             font-weight: bold;
-            cursor: pointer;
-            background: linear-gradient(135deg, #ec4899, #a78bfa);
+            background: linear-gradient(to right, #f472b6, #a78bfa);
             color: white;
-            transition: 0.3s ease;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
 
         button:hover {
-            background: linear-gradient(135deg, #d946ef, #7c3aed);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-        }
-
-        .error-message {
-            color: #d32f2f;
-            font-size: 0.95rem;
-            text-align: center;
-            margin-bottom: 10px;
+            background: linear-gradient(to right, #ec4899, #7c3aed);
+            transform: scale(1.02);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
         }
 
         @media screen and (max-width: 480px) {
-            .login-box {
-                padding: 25px 20px;
+            .login-container {
+                padding: 30px 20px;
             }
         }
     </style>
 </head>
 <body>
 
-<div class="login-box">
+<div class="login-container">
+    <div class="logo-text">MindEase</div>
     <h2>Doctor Login</h2>
 
     @if(session('error'))
