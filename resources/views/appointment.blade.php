@@ -127,8 +127,8 @@
             @csrf
             <input type="hidden" name="DID" value="{{ $doctor->DID }}">
 
-            <label for="date">Select Date</label>
-            <input type="date" name="date" id="date" required>
+            <label for="day">Select Date</label>
+            <input type="date" name="day" id="day" required>
 
             <label for="time">Select Time</label>
             <input type="time" name="time" id="time" required>

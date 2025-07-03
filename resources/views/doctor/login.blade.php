@@ -132,6 +132,7 @@
 
         <button type="submit">Login</button>
     </form>
+    <a href="{{ url('/') }}" class="back-btn">⬅ Back to Main Page</a>
 </div>
 
 </body>

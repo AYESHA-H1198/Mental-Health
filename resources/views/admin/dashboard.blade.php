@@ -119,7 +119,8 @@
     </div>
 
     <div class="nav-buttons">
-        <a href="{{ route('admin.viewAppointments') }}">📋 View All Appointments</a>
         <a href="{{ route('admin.viewPayments') }}">💰 View All Payments</a>
+        <a href="{{ route('doctors.create') }}">➕ Add Doctor</a>
+        <a href="{{ route('doctors.index') }}">🩺 Manage Doctors</a>
     </div>
 @endsection

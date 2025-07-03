@@ -132,6 +132,10 @@
             <button type="submit">Register</button>
         </form>
 
+        <a href="{{ route('user.login') }}" class="link-button">
+    Already have an account? Login here
+</a>
+
         
     </div>
 @endsection
