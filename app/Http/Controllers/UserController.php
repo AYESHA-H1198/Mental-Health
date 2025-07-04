@@ -81,16 +81,32 @@ class UserController extends Controller
     }
 
     public function bookAppointment(Request $request) {
-        $uid = Session::get('user')->UID;
+    $uid = Session::get('user')->UID;
 
-        DB::table('appointment')->insert([
-            'UID' => $uid,
-            'DID' => $request->DID,
-            'AID' => 1, // placeholder admin
-            'day' => $request->day,
-            'time' => $request->time
-        ]);
+    // Define allowed time slots
+    $allowedTimes = ['09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '02:00', '02:30', '03:00'];
 
-        return redirect('/user/dashboard')->with('success', 'Appointment booked!');
+    // Validate time
+    if (!in_array($request->time, $allowedTimes)) {
+        return back()->with('error', 'Invalid time slot selected.');
     }
+
+    // Validate day (no weekends, no past days, no 15+ days ahead)
+    $selectedDate = \Carbon\Carbon::parse($request->day);
+
+    if ($selectedDate->isPast() || $selectedDate->diffInDays(now()) > 14 || $selectedDate->isWeekend()) {
+        return back()->with('error', 'Invalid date selected.');
+    }
+
+    // Book appointment
+    DB::table('appointment')->insert([
+        'UID' => $uid,
+        'DID' => $request->DID,
+        'AID' => 1, // placeholder admin
+        'day' => $request->day,
+        'time' => $request->time
+    ]);
+
+    return redirect('/user/dashboard')->with('success', 'Appointment booked!');
+}
 }

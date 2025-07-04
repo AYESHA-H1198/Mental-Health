@@ -128,14 +128,34 @@
                 <option value="Cash">Cash</option>
                 <option value="Credit">Credit</option>
                 <option value="Online">Online</option>
+                <option value="Mobile">Mobile</option>
             </select>
 
-            <label for="Amt">Amount:</label>
-            <input type="number" name="Amt" id="Amt" step="0.01" required>
+            <label for="Amt_display">Amount:</label>
+            <input type="text" id="Amt_display" step="0.01" value="2000" readonly required>
+            <input type="hidden" name="Amt" id="Amt">
+
 
             <button type="submit">💰 Pay Now</button>
         </form>
 
         <a href="{{ route('user.dashboard') }}" class="back-link">⬅ Back to Dashboard</a>
     </div>
+@endsection
+
+@section('scripts')
+<script>
+    document.getElementById('type').addEventListener('change', function () {
+        const type = this.value;
+        let amount = 0;
+
+        if (type === 'Cash') amount = 1500;
+        else if (type === 'Credit') amount = 1800;
+        else if (type === 'Online') amount = 2000;
+        else if (type === 'Mobile') amount = 2000;
+
+        document.getElementById('Amt_display').value = amount + ' PKR';
+        document.getElementById('Amt').value = amount;
+    });
+</script>
 @endsection

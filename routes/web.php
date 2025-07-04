@@ -45,4 +45,6 @@ Route::get('/payment/form/{Anum}', [PaymentController::class, 'showPaymentForm']
 Route::post('/payment/process', [PaymentController::class, 'processPayment'])->name('payment.process');
 Route::get('/admin/appointments', [AdminController::class, 'viewAppointments'])->name('admin.viewAppointments');
 Route::get('/admin/payments', [AdminController::class, 'viewPayments'])->name('admin.viewPayments');
+Route::get('/admin/appointment/status/{Anum}', [AdminController::class, 'updateStatus'])->name('admin.updateStatus');
+Route::post('/admin/appointment/mark-paid/{Anum}', [AdminController::class, 'markAsPaid'])->name('admin.markPaid');
 

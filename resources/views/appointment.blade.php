@@ -115,27 +115,58 @@
     <div class="appointment-form">
         <h2>Book an Appointment with {{ $doctor->name }}</h2>
 
-        @if (session('error'))
-            <div class="message error">{{ session('error') }}</div>
-        @endif
+       @if (session('error'))
+        <div class="message error">{{ session('error') }}</div>
+    @endif
 
-        @if (session('success'))
-            <div class="message success">{{ session('success') }}</div>
-        @endif
+    @if (session('success'))
+        <div class="message success">{{ session('success') }}</div>
+    @endif
 
-        <form method="POST" action="{{ route('appointment.book') }}">
-            @csrf
-            <input type="hidden" name="DID" value="{{ $doctor->DID }}">
+    <form method="POST" action="{{ route('appointment.book') }}">
+        @csrf
+        <input type="hidden" name="DID" value="{{ $doctor->DID }}">
 
-            <label for="day">Select Date</label>
-            <input type="date" name="day" id="day" required>
+        <label for="day">Select Date:</label>
+        <input 
+            type="date" 
+            name="day" 
+            id="day" 
+            required 
+            min="{{ date('Y-m-d') }}" 
+            max="{{ now()->addDays(14)->format('Y-m-d') }}"
+        >
 
-            <label for="time">Select Time</label>
-            <input type="time" name="time" id="time" required>
+        <label for="time">Select Time:</label>
+        <select name="time" id="time" required>
+            <option value="">-- Select Time Slot --</option>
+            <option value="09:00">09:00 AM</option>
+            <option value="09:30">09:30 AM</option>
+            <option value="10:00">10:00 AM</option>
+            <option value="10:30">10:30 AM</option>
+            <option value="11:00">11:00 AM</option>
+            <option value="11:30">11:30 AM</option>
+            <option value="12:00">12:00 PM</option>
+            <option value="02:00">02:00 PM</option>
+            <option value="02:30">02:30 PM</option>
+            <option value="03:00">03:00 PM</option>
+        </select>
 
-            <button type="submit">Confirm Appointment</button>
-        </form>
+        <button type="submit">Book Appointment</button>
+    </form>
 
-        <a href="{{ route('user.dashboard') }}" class="link-button">← Back to Dashboard</a>
-    </div>
+    <br>
+    <a href="{{ route('user.dashboard') }}" class="link-button" style="background-color: #6c757d;">⬅ Back to Dashboard</a>
+@endsection
+
+@section('scripts')
+<script>
+    document.getElementById('day').addEventListener('change', function () {
+        const day = new Date(this.value).getDay();
+        if (day === 0 || day === 6) {
+            alert("Appointments cannot be booked on weekends.");
+            this.value = '';
+        }
+    });
+</script>
 @endsection
