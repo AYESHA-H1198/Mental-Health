@@ -152,6 +152,22 @@
             <option value="03:00">03:00 PM</option>
         </select>
 
+        <label for="mode">Session Type:</label>
+<select name="mode" id="mode" required onchange="toggleSessionDetails()">
+    <option value="">-- Choose --</option>
+    <option value="Online">Online</option>
+    <option value="Physical">Physical</option>
+</select>
+
+<div id="onlineSection" style="display: none; margin-top: 10px;">
+    <label for="onlineEmail">Your Email for Online Session:</label>
+    <input type="email" name="onlineEmail" id="onlineEmail">
+</div>
+
+<div id="physicalSection" style="display: none; margin-top: 10px; color: #1d3557;">
+    <p><strong>Clinic Address:</strong> 3rd Floor, ABC Mental Health Center, Peshawar</p>
+</div>
+
         <button type="submit">Book Appointment</button>
     </form>
 
@@ -161,6 +177,7 @@
 
 @section('scripts')
 <script>
+    // Restrict appointments on weekends
     document.getElementById('day').addEventListener('change', function () {
         const day = new Date(this.value).getDay();
         if (day === 0 || day === 6) {
@@ -168,5 +185,12 @@
             this.value = '';
         }
     });
+
+    // Toggle between online and physical session details
+    function toggleSessionDetails() {
+        const mode = document.getElementById('mode').value;
+        document.getElementById('onlineSection').style.display = mode === 'Online' ? 'block' : 'none';
+        document.getElementById('physicalSection').style.display = mode === 'Physical' ? 'block' : 'none';
+    }
 </script>
 @endsection

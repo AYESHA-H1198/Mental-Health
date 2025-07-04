@@ -86,16 +86,23 @@ class UserController extends Controller
     // Define allowed time slots
     $allowedTimes = ['09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '02:00', '02:30', '03:00'];
 
-    // Validate time
-    if (!in_array($request->time, $allowedTimes)) {
-        return back()->with('error', 'Invalid time slot selected.');
-    }
+    // Validate basic inputs
+    $request->validate([
+        'day' => 'required|date',
+        'time' => 'required|in:' . implode(',', $allowedTimes),
+        'mode' => 'required|in:Online,Physical',
+        'onlineEmail' => 'nullable|email'
+    ]);
 
-    // Validate day (no weekends, no past days, no 15+ days ahead)
+    // Validate date
     $selectedDate = \Carbon\Carbon::parse($request->day);
-
     if ($selectedDate->isPast() || $selectedDate->diffInDays(now()) > 14 || $selectedDate->isWeekend()) {
         return back()->with('error', 'Invalid date selected.');
+    }
+
+    // If mode is Online, email is required
+    if ($request->mode === 'Online' && empty($request->onlineEmail)) {
+        return back()->with('error', 'Please enter your email for the online session.');
     }
 
     // Book appointment
@@ -104,9 +111,11 @@ class UserController extends Controller
         'DID' => $request->DID,
         'AID' => 1, // placeholder admin
         'day' => $request->day,
-        'time' => $request->time
+        'time' => $request->time,
+        'mode' => $request->mode,
+        'online_email' => $request->mode === 'Online' ? $request->onlineEmail : null
     ]);
 
-    return redirect('/user/dashboard')->with('success', 'Appointment booked!');
+    return redirect('/user/dashboard')->with('success', 'Appointment booked successfully!');
 }
 }
