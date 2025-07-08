@@ -4,64 +4,44 @@
 
 @section('content')
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Roboto:wght@400;500&display=swap');
-
         body {
             font-family: 'Roboto', sans-serif;
             background-color: #fdf6f0;
-            margin: 0;
-            color: #333;
         }
 
-        /* HEADER STYLING */
         .header {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px 0;
+            text-align: center;
+            padding: 30px 0;
             background-color: #f5ebf7;
             border-bottom: 1px solid #e4d8ec;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
             margin-bottom: 30px;
         }
 
         .header h1 {
             font-family: 'Merriweather', serif;
-            font-size: 2rem;
             color: #7b4f75;
+            font-size: 2.2rem;
         }
 
         .payment-container {
-            max-width: 1000px;
-            margin: 0 auto 40px;
+            max-width: 1100px;
+            margin: auto;
             padding: 30px;
-            background-color: #ffffff;
+            background: #fff;
             border-radius: 16px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
-        }
-
-        h2 {
-            font-family: 'Merriweather', serif;
-            font-size: 1.6rem;
-            color: #5c4d7d;
-            margin-bottom: 25px;
-            text-align: center;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            background-color: white;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
         }
 
         th, td {
             padding: 14px 16px;
             text-align: center;
             border-bottom: 1px solid #f0f0f0;
-            font-size: 0.95rem;
         }
 
         th {
@@ -74,13 +54,45 @@
             background-color: #fef6fb;
         }
 
-        td {
-            color: #444;
+        .btn-approve {
+            padding: 6px 14px;
+            background-color: #38b000;
+            color: white;
+            font-weight: bold;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .btn-approve:hover {
+            background-color: #2d8700;
+        }
+
+        .badge {
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .badge.pending {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        .badge.approved {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .proof-link {
+            text-decoration: underline;
+            color: #2563eb;
+            font-weight: 500;
         }
 
         .back-btn {
             display: inline-block;
-            margin-top: 30px;
             background: linear-gradient(to right, #a78bfa, #f472b6);
             color: white;
             padding: 10px 26px;
@@ -102,22 +114,31 @@
         }
     </style>
 
-    <!-- Header -->
     <div class="header">
-        <h1>MindEase</h1>
+        <h1>MindEase Admin Portal</h1>
     </div>
 
     <div class="payment-container">
-        <h2>💰 All Payments</h2>
+        <h2 style="text-align:center; color:#5c4d7d; font-family:'Merriweather';">💰 All Payments</h2>
+
+        @if (session('success'))
+            <div style="color: green; font-weight: bold; text-align:center; margin-bottom:15px;">
+                {{ session('success') }}
+            </div>
+        @endif
 
         <table>
             <thead>
                 <tr>
-                    <th>Payment ID</th>
+                    <th>PID</th>
                     <th>User</th>
                     <th>Amount</th>
                     <th>Day</th>
                     <th>Time</th>
+                    <th>Txn ID</th>
+                    <th>Proof</th>
+                    <th>Status</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -128,6 +149,30 @@
                         <td>Rs. {{ number_format($payment->Amt) }}</td>
                         <td>{{ $payment->day }}</td>
                         <td>{{ $payment->time }}</td>
+                        <td>{{ $payment->txn_id ?? 'N/A' }}</td>
+                        <td>
+                            @if($payment->proof)
+                                <a href="{{ asset('storage/' . $payment->proof) }}" class="proof-link" target="_blank">View</a>
+                            @else
+                                N/A
+                            @endif
+                        </td>
+                        <td>
+                            <span class="badge {{ $payment->status === 'approved' ? 'approved' : 'pending' }}">
+                                {{ ucfirst($payment->status) }}
+                            </span>
+                        </td>
+                        <td>
+                            @if($payment->status !== 'approved')
+                                <form action="{{ route('admin.approve.payment', $payment->PID) }}" method="POST">
+                                    @csrf
+                                    @method('PUT')
+                                    <button type="submit" class="btn-approve">Approve</button>
+                                </form>
+                            @else
+                                ✅
+                            @endif
+                        </td>
                     </tr>
                 @endforeach
             </tbody>

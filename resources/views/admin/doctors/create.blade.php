@@ -3,8 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Add Doctor</title>
-
-    <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
     <style>
@@ -16,6 +14,29 @@
             justify-content: center;
             height: 100vh;
             margin: 0;
+            flex-direction: column;
+        }
+
+        .top-bar {
+            width: 100%;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+        }
+
+        .back-button {
+            background-color: #6a1b9a;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .back-button:hover {
+            background-color: #4a148c;
         }
 
         .form-container {
@@ -33,7 +54,8 @@
         }
 
         input[type="text"],
-        input[type="email"] {
+        input[type="email"],
+        input[type="password"] {
             width: 100%;
             padding: 12px;
             margin-bottom: 20px;
@@ -70,13 +92,32 @@
             padding-left: 0;
             margin-bottom: 15px;
         }
+
+        .success-message {
+            color: green;
+            text-align: center;
+            margin-bottom: 15px;
+        }
     </style>
 </head>
 <body>
 
+    <!-- 🔙 Back to Dashboard button -->
+    <div class="top-bar">
+        <a href="{{ route('admin.dashboard') }}" class="back-button">← Back to Dashboard</a>
+    </div>
+
     <div class="form-container">
         <h1>Add New Doctor</h1>
 
+        {{-- Success message --}}
+        @if(session('success'))
+            <div class="success-message">
+                ✅ {{ session('success') }}
+            </div>
+        @endif
+
+        {{-- Validation errors --}}
         @if($errors->any())
             <ul class="error-list">
                 @foreach ($errors->all() as $error)
@@ -87,9 +128,10 @@
 
         <form action="{{ route('doctors.store') }}" method="POST">
             @csrf
-            <input type="text" name="name" placeholder="Doctor Name" required>
-            <input type="text" name="phone" placeholder="Phone Number" required>
-            <input type="email" name="email" placeholder="Email Address" required>
+            <input type="text" name="name" placeholder="Doctor Name" value="{{ old('name') }}" required>
+            <input type="text" name="phone" placeholder="Phone Number" value="{{ old('phone') }}" required>
+            <input type="email" name="email" placeholder="Email Address" value="{{ old('email') }}" required>
+            <input type="password" name="password" placeholder="Set Password" required>
             <button type="submit">➕ Add Doctor</button>
         </form>
     </div>

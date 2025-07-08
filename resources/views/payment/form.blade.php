@@ -36,7 +36,9 @@
         }
 
         select,
-        input[type="number"] {
+        input[type="number"],
+        input[type="text"],
+        input[type="file"] {
             width: 100%;
             padding: 10px 12px;
             margin-top: 6px;
@@ -48,7 +50,7 @@
         }
 
         select:focus,
-        input[type="number"]:focus {
+        input:focus {
             border-color: #a78bfa;
             outline: none;
             box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.2);
@@ -118,7 +120,7 @@
             <div class="message success">{{ session('success') }}</div>
         @endif
 
-        <form method="POST" action="{{ route('payment.process') }}">
+        <form method="POST" action="{{ route('payment.process') }}" id="payment-form" enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="Anum" value="{{ $appointment->Anum }}">
 
@@ -126,15 +128,34 @@
             <select name="type" id="type" required>
                 <option value="">-- Select Type --</option>
                 <option value="Cash">Cash</option>
-                <option value="Credit">Credit</option>
-                <option value="Online">Online</option>
-                <option value="Mobile">Mobile</option>
+                <option value="Credit">Credit (Stripe)</option>
+                <option value="Online">Online (Easypaisa)</option>
+                <option value="Mobile">Mobile (JazzCash)</option>
             </select>
 
             <label for="Amt_display">Amount:</label>
-            <input type="text" id="Amt_display" step="0.01" value="2000" readonly required>
-            <input type="hidden" name="Amt" id="Amt">
+            <input type="text" id="Amt_display" value="2000 PKR" readonly required>
+            <input type="hidden" name="Amt" id="Amt" value="2000">
 
+            <!-- Easypaisa Fields -->
+            <div id="easypaisa-details" style="display: none;">
+                <p><strong>Easypaisa No:</strong> 03425939663 (Ayesha Fayyaz)</p>
+                <label for="easypaisa_txn_id">Transaction ID:</label>
+                <input type="text" name="easypaisa_txn_id" id="easypaisa_txn_id">
+
+                <label for="easypaisa_screenshot">Upload Screenshot:</label>
+                <input type="file" name="easypaisa_screenshot" id="easypaisa_screenshot" accept="image/*">
+            </div>
+
+            <!-- JazzCash Fields -->
+            <div id="jazzcash-details" style="display: none;">
+                <p><strong>JazzCash No:</strong> 03009342480 (Ayesha Fayyaz)</p>
+                <label for="jazzcash_txn_id">Transaction ID:</label>
+                <input type="text" name="jazzcash_txn_id" id="jazzcash_txn_id">
+
+                <label for="jazzcash_screenshot">Upload Screenshot:</label>
+                <input type="file" name="jazzcash_screenshot" id="jazzcash_screenshot" accept="image/*">
+            </div>
 
             <button type="submit">💰 Pay Now</button>
         </form>
@@ -145,17 +166,66 @@
 
 @section('scripts')
 <script>
-    document.getElementById('type').addEventListener('change', function () {
+    const typeSelector = document.getElementById('type');
+    const amtInput = document.getElementById('Amt');
+    const amtDisplay = document.getElementById('Amt_display');
+    const form = document.getElementById('payment-form');
+
+    const easypaisaDetails = document.getElementById('easypaisa-details');
+    const jazzcashDetails = document.getElementById('jazzcash-details');
+
+    typeSelector.addEventListener('change', function () {
         const type = this.value;
-        let amount = 0;
 
-        if (type === 'Cash') amount = 1500;
-        else if (type === 'Credit') amount = 1800;
-        else if (type === 'Online') amount = 2000;
-        else if (type === 'Mobile') amount = 2000;
+        // Hide all method-specific fields
+        easypaisaDetails.style.display = 'none';
+        jazzcashDetails.style.display = 'none';
 
-        document.getElementById('Amt_display').value = amount + ' PKR';
-        document.getElementById('Amt').value = amount;
+        let amount = 2000;
+
+        if (type === 'Cash') amount = 2200;
+        else if (type === 'Online') {
+            amount = 2000;
+            easypaisaDetails.style.display = 'block';
+        } else if (type === 'Mobile') {
+            amount = 2000;
+            jazzcashDetails.style.display = 'block';
+        }
+
+        amtDisplay.value = amount + ' PKR';
+        amtInput.value = amount;
+    });
+
+    form.addEventListener('submit', function (e) {
+        const selectedType = typeSelector.value;
+
+        if (selectedType === 'Online') {
+            const txnId = document.getElementById('easypaisa_txn_id').value.trim();
+            const screenshot = document.getElementById('easypaisa_screenshot').files.length;
+
+            if (!txnId || !screenshot) {
+                e.preventDefault();
+                alert("Please enter Easypaisa Transaction ID and upload the screenshot.");
+                return;
+            }
+        }
+
+        if (selectedType === 'Mobile') {
+            const txnId = document.getElementById('jazzcash_txn_id').value.trim();
+            const screenshot = document.getElementById('jazzcash_screenshot').files.length;
+
+            if (!txnId || !screenshot) {
+                e.preventDefault();
+                alert("Please enter JazzCash Transaction ID and upload the screenshot.");
+                return;
+            }
+        }
+
+        if (selectedType === 'Credit') {
+            e.preventDefault();
+            window.open("https://buy.stripe.com/test_28E6oG573b3s9KVdBC5wI00", "_blank");
+            window.location.href = "{{ route('user.dashboard') }}";
+        }
     });
 </script>
 @endsection

@@ -151,8 +151,11 @@
                     <th>Doctor</th>
                     <th>Day</th>
                     <th>Time</th>
-                    <th>Status</th>
+                    <th>Mode</th>
+                    <th>Payment Status</th>
+                    <th>Appointment Status</th>
                     <th>Action</th>
+                    <th>Medical Record</th>
                 </tr>
             </thead>
             <tbody>
@@ -161,10 +164,43 @@
                         <td>{{ $appointment->doctor_name }}</td>
                         <td>{{ $appointment->day }}</td>
                         <td>{{ $appointment->time }}</td>
-                        <td>{{ $appointment->status ?? 'Pending' }}</td>
+                        <td>{{ ucfirst($appointment->mode) }}</td>
                         <td>
-                            <a href="{{ route('payment.form', $appointment->Anum) }}" class="link-button">Pay</a>
+                            @if ($appointment->payment_status === 'approved')
+                                <span style="color: green;">Paid</span>
+                            @elseif ($appointment->payment_status === 'pending')
+                                <span style="color: orange;">Pending</span>
+                            @else
+                                <span style="color: red;">Not Paid</span>
+                            @endif
                         </td>
+                        <td>
+                            @if ($appointment->appointment_status === 'Waiting')
+                                <span style="color: orange;">Waiting</span>
+                            @elseif ($appointment->appointment_status === 'Completed')
+                                <span style="color: green;">Completed</span>
+                            @elseif ($appointment->appointment_status === 'Rescheduled')
+                                <span style="color: blue;">Rescheduled</span>
+                            @elseif ($appointment->appointment_status === 'Missed')
+                                <span style="color: red;">Missed</span>
+                            @else
+                                <span style="color: gray;">{{ ucfirst($appointment->appointment_status) }}</span>
+                            @endif
+                        </td>
+                        <td>
+                            @if (empty($appointment->payment_status) && !empty($appointment->Anum))
+                                <a href="{{ route('payment.form', ['Anum' => $appointment->Anum]) }}" class="link-button">Pay</a>
+                            @else
+                                <span>-</span>
+                            @endif
+                        </td>
+                        <td>
+                             @if ($appointment->record_id)
+                                   <a href="{{ route('user.record.view', $appointment->Anum) }}" class="link-button">View Record</a>
+                             @else
+                                     <span style="color: gray;">N/A</span>
+                             @endif
+</td>
                     </tr>
                 @endforeach
             </tbody>
